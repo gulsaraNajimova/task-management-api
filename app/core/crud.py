@@ -86,6 +86,8 @@ def check_duplicate_tasks(db: Session, task: schemas.TaskBase):
 def create_user(db: Session, user: schemas.UserBaseWithPassword):
     hashed_password = security.hash_password(user.password)
     db_user = models.UserModel(
+        firstname = user.firstname,
+        lastname = user.lastname,
         username = user.username, 
         email = user.email, 
         hashed_password = hashed_password

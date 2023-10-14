@@ -18,6 +18,8 @@ class UserModel(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
     type = Column(Enum(UserType), default=UserType.USER)
+    firstname = Column(String)
+    lastname = Column(String)
 
     tasks = relationship("TasksModel", back_populates = "owner")
 

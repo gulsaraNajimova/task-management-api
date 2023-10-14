@@ -41,6 +41,8 @@ class TaskEdit(BaseModel):
 
 # User Schemas
 class UserBase(BaseModel):
+    firstname: Optional[str]
+    lastname: Optional[str]
     username: str
     email: str 
     type: str = UserType.USER
@@ -51,6 +53,8 @@ class UserBaseWithPassword(UserBase):
     class Config:
         schema_extra={
             "example": {
+                "firstname": "sarah",
+                "lastname": "najimova",
                 "username": "sarah",
                 "email": "sarah@gmail.com",
                 "password": "password123"

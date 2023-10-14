@@ -41,7 +41,7 @@ async def get_user_tasks(
     
     user_tasks = crud.list_tasks(db, owner_id = user_id)
 
-    if user_tasks is None:
+    if len(user_tasks) == 0:
         raise exceptions.NotFoundError("No Task not Found for this user")
     return jsonable_encoder(user_tasks)
     
