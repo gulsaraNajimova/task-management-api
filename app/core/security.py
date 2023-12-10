@@ -1,3 +1,5 @@
+import os
+
 from fastapi import Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from datetime import datetime, timedelta
@@ -11,7 +13,7 @@ from app.core.exceptions import AuthError
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-SECRET_KEY = "c72382d6a281a77e102454ce1950b2facac8700ae8ff29bc54dd9dddcb0bd3b4"
+SECRET_KEY = os.getenv("MY_SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -44,8 +46,19 @@ def decode_jwt(token: str):
             round(datetime.utcnow().timestamp())
             ) else None
 
-    except Exception as e:  # noqa: F841
+    except Exception as e:
         return {}
+
+
+def verify_jwt(jwt_token: str):
+    is_token_valid: bool = False
+    try:
+        payload = decode_jwt(jwt_token)
+    except Exception as e:
+        payload = None
+    if payload:
+        is_token_valid = True
+    return is_token_valid
 
 
 class JWTBearer(HTTPBearer):
@@ -60,19 +73,9 @@ class JWTBearer(HTTPBearer):
         if credentials:
             if not credentials.scheme == "Bearer":
                 raise AuthError(detail="Invalid authentication scheme.")
-            if not self.verify_jwt(credentials.credentials):
+            if not verify_jwt(credentials.credentials):
                 raise AuthError(detail="Invalid token or expired token.")
             return credentials.credentials
         else:
             raise AuthError(detail="Invalid authorization code.")
-        
 
-    def verify_jwt(self, jwt_token: str):
-        is_token_valid: bool = False
-        try:
-            payload = decode_jwt(jwt_token)
-        except Exception as e:  # noqa: F841
-            payload = None
-        if payload:
-            is_token_valid = True
-        return is_token_valid

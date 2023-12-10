@@ -12,6 +12,7 @@ def get_user_by_id(db: Session, user_id: int):
 def get_user_by_email(db: Session, email: str):
     return db.query(models.UserModel).filter(models.UserModel.email == email).first()
 
+
 def get_user_by_username(db: Session, username: str):
     return db.query(
         models.UserModel).filter(models.UserModel.username == username
@@ -42,6 +43,7 @@ def list_tasks_by_deadline(db: Session, user_id, due_before_date: datetime):
         tasks_list.append(task_with_deadline)
 
     return tasks_list 
+
 
 def list_tasks_by_importance(db: Session, user_id, importance: str):
     tasks_importance = db.query(models.TasksModel).filter(
@@ -80,7 +82,6 @@ def check_duplicate_tasks(db: Session, task: schemas.TaskBase):
     
     return False
         
-
 
 # Create a User
 def create_user(db: Session, user: schemas.UserBaseWithPassword):

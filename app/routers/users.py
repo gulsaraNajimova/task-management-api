@@ -29,6 +29,7 @@ async def sign_up(user: UserBaseWithPassword, db: Session = Depends(get_db)):
     db_user = crud.create_user(db=db, user=user)
     return jsonable_encoder(db_user)
 
+
 @user_router.post("/login")
 async def login(email: str, password: str,db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email = email)
@@ -44,6 +45,7 @@ async def login(email: str, password: str,db: Session = Depends(get_db)):
     }
     token = security.create_token(payload_data)
     return token
+
 
 @user_router.put("/update_first_lastnames", response_model=UserSchema)
 async def include_first_lastnames(firstname: str, lastname: str, 
@@ -61,7 +63,10 @@ async def include_first_lastnames(firstname: str, lastname: str,
     db.refresh(db_user)
     return jsonable_encoder(db_user)
 
+
 @user_router.get("/user", response_model=UserSchema)
-async def get_user(current_user: str = Depends(get_current_user), db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email = current_user.email)
+async def get_user(current_user: str = Depends(get_current_user), 
+                   db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=current_user.email)
     return jsonable_encoder(db_user)
+

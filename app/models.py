@@ -5,9 +5,11 @@ from sqlalchemy import Enum
 
 from app.core.database import Base
 
+
 class UserType(str, PyEnum):
     ADMIN="admin"
     USER="user"
+
 
 class UserModel(Base):
     __tablename__ = "users"
@@ -31,9 +33,11 @@ class ImportanceEnum(str, PyEnum):
     IMPORTANT = "important"
     NORMAL = "normal"
 
+
 class StatusEnum(str, PyEnum):
     COMPLETE = "complete"
     INCOMPLETE = "incomplete"
+
 
 class TasksModel(Base):
     __tablename__ = "tasks"
@@ -46,7 +50,8 @@ class TasksModel(Base):
     status = Column(Enum(StatusEnum), default = StatusEnum.INCOMPLETE)
     owner_id = Column(String, ForeignKey("users.id"))
 
-    owner=relationship("UserModel", back_populates = "tasks")
+    owner = relationship("UserModel", back_populates="tasks")
 
     def __repr__(self):
         return f"<Task {self.taskname}, deadline {self.deadline}>"
+

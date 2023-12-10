@@ -4,6 +4,7 @@ from datetime import datetime
 
 from app.models import ImportanceEnum, StatusEnum, UserType
 
+
 # Task Schemas
 class TaskBase(BaseModel):
     taskname: str
@@ -11,7 +12,8 @@ class TaskBase(BaseModel):
     importance: ImportanceEnum = ImportanceEnum.NORMAL
     deadline: datetime
     status: StatusEnum = StatusEnum.INCOMPLETE
-    
+
+
 class TaskCreate(TaskBase):
     pass
 
@@ -25,6 +27,7 @@ class TaskCreate(TaskBase):
                 "status": "incomplete"
             }
         }
+
 
 class TaskSchema(TaskBase):
     id: int
@@ -47,6 +50,7 @@ class UserBase(BaseModel):
     email: str 
     type: str = UserType.USER
 
+
 class UserBaseWithPassword(UserBase):
     password: str 
 
@@ -61,6 +65,7 @@ class UserBaseWithPassword(UserBase):
             }
         }
 
+
 class UserSchema(UserBase):
     id: int
     is_active: bool
@@ -71,6 +76,7 @@ class UserSchema(UserBase):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
 
 # Payload
 class Payload(BaseModel):

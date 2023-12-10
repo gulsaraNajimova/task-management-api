@@ -10,7 +10,8 @@ from app.schemas import Payload, UserSchema
 from app.models import UserType
 
 
-Base.metadata.create_all(bind=engine) #creates database tables
+Base.metadata.create_all(bind=engine)
+
 
 def get_db():
     db = SessionLocal()
@@ -52,3 +53,4 @@ def get_current_superuser(current_user: UserSchema = Depends(get_current_user)):
     if current_user.type != UserType.ADMIN:
         raise AuthError("Not a superuser")
     return current_user
+
