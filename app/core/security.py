@@ -7,13 +7,14 @@ from typing import Optional
 from jose import jwt
 from passlib.context import CryptContext
 
+from app.core.config import configs
 from app.core.exceptions import AuthError
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-SECRET_KEY = os.getenv("MY_SECRET_KEY")
+SECRET_KEY = configs.SECRET_KEY
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
