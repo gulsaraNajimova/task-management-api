@@ -1,0 +1,36 @@
+version: "1"
+services:
+  fastapi_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todolist-backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./app:/code/app
+    networks:
+      - backend
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15.3
+    container_name: todolist-db
+    environment:
+      - DB_USER: ${"DB_USER"}
+      - DB_PASSWORD: ${"DB_PASSWORD"}
+      - DB_HOST: ${"DB_HOST"}
+      - DB_PORT: ${"DB_PORT"}
+    env_file:
+      - .env
+    volumes:
+      - ./app:/code/db
+    networks:
+      - backend
+
+volumes:
+  app:
+
+networks:
+  backend:
