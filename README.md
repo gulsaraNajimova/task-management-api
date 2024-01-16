@@ -28,24 +28,28 @@ Base FastApi project for applying general RestAPI application cases to manage ta
 1. uvicorn app.main:app --reload
 2. options
     1. host: `--host 0.0.0.0`
-    2. port: `--port 8000`
+    2. port: `--port 8080`
 
 
 ### How to run with Docker Compose
 1. Install Docker 
-2. Create .env file with following environmental variables:
-   ```dotenv
+2. Create .env file
+3. Run `docker-compose up -d` in the terminal. The -d flag runs the containers in the background. The services defined in the docker-compose.yml file, such as the FastAPI application and PostgreSQL database, will be built and started. 
+4. Access the FastAPI application by navigating to http://localhost:8080 in your web browser.
+
+### Sample .env file format:
+```dotenv
     ENV=env
     DB=postgresql
     DB_USER=
     DB_PASSWORD=
     DB_HOST=localhost
     DB_PORT=5432
-    ```
-3. Run `docker-compose up -d` in the terminal. The -d flag runs the containers in the background. The services defined in the docker-compose.yml file, such as the FastAPI application and PostgreSQL database, will be built and started. 
-4. Access the FastAPI application by navigating to http://localhost:8080 in your web browser.
+   
+    MY_SECRET_KEY="MY_SECRET_KEY_VALUE"
+```
 
 ### References
 1. [FastAPI official docs](https://fastapi.tiangolo.com/)
-2. [alembic official tutorial](https://alembic.sqlalchemy.org/en/latest/tutorial.html)
+2. [Alembic official tutorial](https://alembic.sqlalchemy.org/en/latest/tutorial.html)
 3. [Docker official tutorial](https://docs.docker.com/get-started/) 
