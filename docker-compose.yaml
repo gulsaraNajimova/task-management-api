@@ -10,6 +10,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_PORT: ${DB_PORT}
       DB: ${DB}
+      SECRET_KEY: ${MY_SECRET_KEY}
     env_file:
       - .env
     ports:
@@ -33,6 +34,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - backend
+
 networks:
   backend:
 
