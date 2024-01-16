@@ -48,7 +48,7 @@ class TasksModel(Base):
     importance = Column(Enum(ImportanceEnum), default = ImportanceEnum.NORMAL)
     deadline = Column(DateTime)
     status = Column(Enum(StatusEnum), default = StatusEnum.INCOMPLETE)
-    owner_id = Column(String, ForeignKey("users.id"))
+    owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("UserModel", back_populates="tasks")
 
