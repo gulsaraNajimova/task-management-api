@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     ports:
-      - 8080:8080
+      - 8080:8080  # host's port : container's port
     networks:
       - backend
     depends_on:
@@ -23,15 +23,19 @@ services:
   db:
     image: postgres:15.1
     container_name: todolist-db
+    expose:
+      - "5433" # Publishes 5433 to other containers but NOT to host machine
+    ports:
+      - "5433:5433"
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_PORT: ${DB_PORT}
       POSTGRES_DB: ${DB}
     env_file:
       - .env
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    command: -p 5433
     networks:
       - backend
 
