@@ -5,7 +5,7 @@ from app.routers.users import user_router
 from app.routers.admin import admin_router
 
 
-app=FastAPI(
+app = FastAPI(
     title="To Do List app",
     description="Manages the list of to do tasks",
     version="0.0.1",
