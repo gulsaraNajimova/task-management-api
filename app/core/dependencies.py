@@ -5,12 +5,11 @@ from sqlalchemy.orm import Session
 
 from app.core import security, crud
 from app.core.exceptions import AuthError
-from app.core.database import SessionLocal, engine, Base
+from app.core.database import Base, engine, SessionLocal
 from app.schemas import Payload, UserSchema
 from app.models import UserType
 
-
-Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(engine)
 
 
 def get_db():
